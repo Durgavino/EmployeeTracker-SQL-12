@@ -13,7 +13,7 @@ const db = mysql.createConnection(
       user: 'root',
       // MySQL password
       password: 'bootcamp',
-      database: ''
+      database: 'EmployeeTracker_db'
     },
-    console.log(`Connected to the classlist_db database.`)
+    console.log(`Connected to the EmployeeTracker_db database.`)
   );
