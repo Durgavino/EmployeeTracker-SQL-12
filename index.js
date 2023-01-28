@@ -1,7 +1,7 @@
-const inquirer=require('inquirer');
-const mysql=require('mysql2');
+const inquirer = require('inquirer');
+const mysql = require('mysql2');
 const consoleTable = require('console.table');
-const path=require('path');
+const path = require('path');
 
 // Connect to database
 const db = mysql.createConnection(
@@ -17,12 +17,12 @@ const db = mysql.createConnection(
 );
 
 
-const options=[
+const options = [
   {
-    type:"list",
-    message:"What Would you like to do?",
-    name:"option",
-    choices:[
+    type: "list",
+    message: "What Would you like to do?",
+    name: "option",
+    choices: [
       "View all Departments",
       "View all Roles",
       "View all Employees",
@@ -30,60 +30,30 @@ const options=[
       "Add a Role",
       "Add an Employee",
       "Update an Employee Role",
-
     ]
   }
-  // },
 
-
-
-  // {
-  //   type:"input",
-  //   message:"View all Departments",
-  //   name:"viewDepartment"
-  // },
-  // {
-  //   type:"input",
-  //   message:"View all Roles",
-  //   name:"viewRoles"
-  // },
-  // {
-  //   type:"input",
-  //   message:"View all Employees",
-  //   name:"viewEmployees"
-  // },
-  // {
-  //   type:"input",
-  //   message:"Add a Department",
-  //   name:"AddDepartment"
-  // },
-  // {
-  //   type:"input",
-  //   message:"Add a Role",
-  //   name:"addRole"
-  // },
-  // {
-  //   type:"input",
-  //   message:"Add an Employee",
-  //   name:"addEmployee"
-  // },
-  // {
-  //   type:"input",
-  //   message:"Update an Employee Role",
-  //   name:"UpdateEmployeerole"
-  // }
 ];
 
 
-function init(){
+function init() {
   inquirer.prompt(options)
-  .then(data=>{
-    console.log(data);
-  }  )
+    .then(data => {
+      console.log(data);
+if("View all Departments"==="View all Departments"){
+  return viewallDepartment();
+}
+    })
 }
 
 init();
 
+function viewallDepartment(){
+  // Query database
+db.query('SELECT * FROM department', function (err, results) {
+  console.log(results);
+});
+}
 
 
 
@@ -91,10 +61,8 @@ init();
 
 
 
-//   // Query database
-// db.query('SELECT * FROM department', function (err, results) {
-//   console.log(results);
-// });
+
+
 // db.query('SELECT * FROM role', function (err, results) {
 //   console.log(results);
 // });
