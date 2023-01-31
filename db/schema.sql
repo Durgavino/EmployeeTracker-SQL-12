@@ -4,9 +4,10 @@ CREATE DATABASE EmployeeTracker_db;
 USE EmployeeTracker_db;
 
 CREATE TABLE department (
-  id INT PRIMARY KEY,
+  department_id INT PRIMARY KEY,
   dept_name VARCHAR(30)
 );
+
 
 CREATE TABLE role(
     id INT PRIMARY KEY,
@@ -23,3 +24,4 @@ id int primary key auto_increment,
     manager_id INT
     
 );
+
