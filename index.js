@@ -68,7 +68,7 @@ function viewallDepartment() {
 
 
 function viewallRole() {
-  db.query('select role.id,role.title,role.salary,department.dept_name from role join department on role.department_id=department.department_id; ', function (err, results) {
+  db.query(' select role.id,role.title,role.salary,department.dept_name from role join department on role.department_id=department.department_id ', function (err, results) {
     if (err) throw err;
     console.log(results);
   });

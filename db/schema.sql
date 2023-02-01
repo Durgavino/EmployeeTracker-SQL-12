@@ -16,7 +16,7 @@ CREATE TABLE role(
     department_id INT
 );
 
-CREATE TABLE  employee(
+CREATE TABLE employee(
 id int primary key auto_increment,
       first_name VARCHAR(30),
     last_name VARCHAR(30),

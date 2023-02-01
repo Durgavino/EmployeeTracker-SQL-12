@@ -35,8 +35,13 @@ VALUES ("Vinoth","Venkatesan",1,1),
 select * from employee;
 
 
-
+ alter table role add foreign key (department_id) references department(department_id);
+ 
 select role.id,role.title,role.salary,department.dept_name
  from role
  join department
  on role.department_id=department.department_id;
+
+
+
+ select
