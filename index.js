@@ -40,10 +40,11 @@ function init(){
   inquirer.prompt(options)
   .then(data =>{
     console.log(data);
-    if("View all Departments"==="View all Departments"){
+    if(data.option==="View all Departments"){
+      console.log(data.option);
       return viewallDepartment();
     }
-else if("View all Roles"==="View all Roles"){
+else if(data.option==="View all Roles"){
   return viewallRole();
 }
 
