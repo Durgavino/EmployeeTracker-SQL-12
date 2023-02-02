@@ -47,7 +47,9 @@ function init(){
 else if(data.option==="View all Roles"){
   return viewallRole();
 }
-
+else if(data.option==="View all Employees"){
+  return viewEmployees();
+}
 
 
   })
@@ -71,6 +73,13 @@ function viewallDepartment() {
 function viewallRole() {
   db.query(' select role.id,role.title,role.salary,department.dept_name from role join department on role.department_id=department.department_id ', function (err, results) {
     if (err) throw err;
+    console.log(results);
+  });
+}
+
+function viewEmployees(){
+  db.query('select employee.id,employee.first_name,employee.last_name,role.title,department.dept_name,role.salary,employee.manager_id from employee inner join role on employee.role_id=role.id inner join department on role.department_id=department.department_id',function(err,results){
+    if(err) throw err;
     console.log(results);
   });
 }
