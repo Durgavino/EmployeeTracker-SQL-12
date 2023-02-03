@@ -54,7 +54,9 @@ function init() {
 
         return addDepartment();
       }
-
+else if(data.option==="Add a Role"){
+  return addRole();
+}
     })
 }
 
@@ -116,3 +118,32 @@ function addDepartment()
   })
 }
 
+function addRole(){
+  inquirer.prompt([
+    {
+      type:'input',
+      name:'roles',
+      message:"Enter the Name of the Role :"
+    },
+    {
+      type:'input',
+      name:'salaries',
+      message:"What is the Salary of the Role :"
+    },
+    {
+      type:'list',
+      name:'deptroles',
+      message:"Which Department does the Role belong to ?",
+      choices:["Sales","Engineer","Accounts","HR","Training","code"]
+    }
+  ])
+  // .then(data =>{
+  //   console.log(data);
+  //   let rolename=data.roles;
+  //   let sql=`Insert into role(title) values (?)`;
+  //   db.query(sql,rolename,function(err,results){
+  //     if (err) throw err;
+
+  //   })
+  // })
+}
