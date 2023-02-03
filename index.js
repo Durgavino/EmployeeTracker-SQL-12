@@ -7,9 +7,9 @@ const path = require('path');
 const db = mysql.createConnection(
   {
     host: 'localhost',
-   // MySQL username,
+    // MySQL username,
     user: 'root',
-  // MySQL password
+    // MySQL password
     password: 'bootcamp',
     database: 'EmployeeTracker_db'
   },
@@ -36,23 +36,26 @@ const options = [
 
 
 
-function init(){
+function init() {
   inquirer.prompt(options)
-  .then(data =>{
-    console.log(data);
-    if(data.option==="View all Departments"){
-      console.log(data.option);
-      return viewallDepartment();
-    }
-else if(data.option==="View all Roles"){
-  return viewallRole();
-}
-else if(data.option==="View all Employees"){
-  return viewEmployees();
-}
+    .then(data => {
+      console.log(data);
+      if (data.option === "View all Departments") {
+        console.log(data.option);
+        return viewallDepartment();
+      }
+      else if (data.option === "View all Roles") {
+        return viewallRole();
+      }
+      else if (data.option === "View all Employees") {
+        return viewEmployees();
+      }
+      else if (data.option === "Add a Department") {
 
+        addDepartment();
+      }
 
-  })
+    })
 }
 
 init();
@@ -63,9 +66,9 @@ function viewallDepartment() {
   // Query database
   db.query('SELECT * FROM department', function (err, results) {
     console.log("------------------------");
-   console.log(results);
-   
-   console.log("------------------------");
+    console.log(results);
+
+    console.log("------------------------");
   });
 }
 
@@ -77,9 +80,43 @@ function viewallRole() {
   });
 }
 
-function viewEmployees(){
-  db.query('select employee.id,employee.first_name,employee.last_name,role.title,department.dept_name,role.salary,employee.manager_id from employee inner join role on employee.role_id=role.id inner join department on role.department_id=department.department_id',function(err,results){
-    if(err) throw err;
+function viewEmployees() {
+  db.query('select employee.id,employee.first_name,employee.last_name,role.title,department.dept_name,role.salary,employee.manager_id from employee inner join role on employee.role_id=role.id inner join department on role.department_id=department.department_id', function (err, results) {
+    if (err) throw err;
     console.log(results);
   });
+}
+
+// function addDepartment(){
+// inquirer.prompt([
+//   {
+//     type:'input',
+//     name: 'department',
+//     message:'enter a department name',
+//   }
+// ]).then(data=>{
+//   console.log(data);
+//   let dpartment = data.department;
+//   console.log(dpartment  + ' added');
+//   db.query(`Insert into department set ? `, dpartment)
+// })
+
+
+// }
+
+function addDepartment() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'department',
+      message: 'enter a department name',
+    }
+  ]).then(data => {
+    let sql=`Insert into department SET department_id=?,dept_name=?`;
+    db.query(sql),function(err, results)
+     {
+      if (err) throw err;
+    }
+
+  })
 }
