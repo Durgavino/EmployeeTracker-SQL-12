@@ -52,7 +52,7 @@ function init() {
       }
       else if (data.option === "Add a Department") {
 
-       return addDepartment();
+        return addDepartment();
       }
 
     })
@@ -87,27 +87,32 @@ function viewEmployees() {
   });
 }
 
-function addDepartment() {
+function addDepartment() 
+{
   inquirer.prompt([
     {
       type: 'input',
       name: 'department',
       message: 'enter a department name',
     }
-  ]).then(data => {
+  ])
+  .then(data => 
+    {
     console.log(data);
     let dpartment = data.department;
     console.log(dpartment + ' added');
-   //db.query(`Insert into department set dept_name ? `, dpartment);
-   let sql=(`Insert into department set dept_name ? `, dpartment);
-  // db.query(`Insert into department set dept_name ? `, dpartment,function(err,results){
-    db.query(sql,function(err,results){  
-  if(err) throw err;
-    //console.log(results);
-    viewallDepartment();
-   });
+    //db.query(`Insert into department set dept_name ? `, dpartment);
+    let sql =`Insert into department(dept_name) values(?) `;
+    // db.query(`Insert into department set dept_name ? `, dpartment,function(err,results){
+    db.query(sql,dpartment, function (err, results) 
+    {
+      if (err) throw err;
+      //console.log(results);
 
-   
+      viewallDepartment();
+    });
+
+
   })
 }
 
