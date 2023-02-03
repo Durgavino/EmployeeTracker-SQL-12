@@ -52,7 +52,7 @@ function init() {
       }
       else if (data.option === "Add a Department") {
 
-        addDepartment();
+       return addDepartment();
       }
 
     })
@@ -87,42 +87,27 @@ function viewEmployees() {
   });
 }
 
-// function addDepartment(){
-// inquirer.prompt([
-//   {
-//     type:'input',
-//     name: 'department',
-//     message:'enter a department name',
-//   }
-// ]).then(data=>{
-//   console.log(data);
-//   let dpartment = data.department;
-//   console.log(dpartment  + ' added');
-//   db.query(`Insert into department set ? `, dpartment)
-// })
-
-
-// }
-
 function addDepartment() {
   inquirer.prompt([
     {
       type: 'input',
       name: 'department',
-      message: 'Add a department name',
+      message: 'enter a department name',
     }
   ]).then(data => {
-    //let sql=`Insert into department SET department_id=?,dept_name=?`;
-    let sql=`Insert into department (dept_name) values (?)`;
+    console.log(data);
+    let dpartment = data.department;
+    console.log(dpartment + ' added');
+   //db.query(`Insert into department set dept_name ? `, dpartment);
+   let sql=(`Insert into department set dept_name ? `, dpartment);
+  // db.query(`Insert into department set dept_name ? `, dpartment,function(err,results){
+    db.query(sql,function(err,results){  
+  if(err) throw err;
+    //console.log(results);
+    viewallDepartment();
+   });
 
-    db.query(sql),data.department,function(err, results)
-     {
-      if (err) throw err;
-    
-      console.log(results);
-     // viewallDepartment();
-     }
-     
-
+   
   })
 }
+
