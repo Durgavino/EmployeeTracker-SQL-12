@@ -109,14 +109,20 @@ function addDepartment() {
     {
       type: 'input',
       name: 'department',
-      message: 'enter a department name',
+      message: 'Add a department name',
     }
   ]).then(data => {
-    let sql=`Insert into department SET department_id=?,dept_name=?`;
-    db.query(sql),function(err, results)
+    //let sql=`Insert into department SET department_id=?,dept_name=?`;
+    let sql=`Insert into department (dept_name) values (?)`;
+
+    db.query(sql),data.department,function(err, results)
      {
       if (err) throw err;
-    }
+    
+      console.log(results);
+     // viewallDepartment();
+     }
+     
 
   })
 }
