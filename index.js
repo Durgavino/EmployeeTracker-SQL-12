@@ -57,6 +57,13 @@ function init() {
       else if (data.option === "Add a Role") {
         return addRole();
       }
+      else if (data.option === "Add an Employee") {
+        return addEmployee();
+      }
+      else if (data.option === "Update an Employee Role") {
+        return updateEmployee();
+      }
+
     })
 }
 
@@ -122,8 +129,7 @@ function addDepartment() {
     })
 }
 
-function addRole()
- {
+function addRole() {
   inquirer.prompt([
     {
       type: 'input',
@@ -175,15 +181,126 @@ function addRole()
       let sal = parseInt(data.salaries);
       let deptrole = data.deptroles;
 
-     // let sql = `Insert into role(title,salary,dept_name) set (?, ?, ?)`;
+      // let sql = `Insert into role(title,salary,dept_name) set (?, ?, ?)`;
       let sql = `Insert into role(title,salary,department_id) values (?,?,?)`;
       let total = [rolename, sal, deptrole];
       // db.query(sql, [rolename, sal, deptrole], function (err, results) {
       db.query(sql, total, function (err, results) {
         if (err) throw err;
-        console.table(results);
+
+        //console.table(results);
         viewallRole();
-        init();
+
       })
+      init();
+
     })
+}
+
+function addEmployee() {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'EFirstname',
+      message: "Enter the Employee's First-Name :"
+    },
+    {
+      type: 'input',
+      name: 'ELastname',
+      message: "Enter the Employee's Last-Name :"
+    },
+    {
+      type: 'list',
+      name: 'Erole',
+      message: "Select the Employee's Role:",
+      choices: [
+        {
+          name: "sales Lead",
+          value: 1
+        },
+        {
+          name: "Sales Person",
+          value: 2
+        },
+        {
+          name: "Account Manager",
+          value: 3
+        },
+        {
+          name: "Accountant",
+          value: 4
+        },
+        {
+          name: "Employee HR",
+          value: 5
+        },
+        {
+          name: "Trainer",
+          value: 6
+        },
+        {
+          name: "Senior Engineer",
+          value: 7
+        },
+        {
+          name: "Junior Engineer",
+          value: 8
+        }
+
+      ]
+    },
+    {
+      type: 'list',
+      name: 'Emanager',
+      message: "Select the Employee's Manager Name :",
+      choices: [
+        {
+          name: "Vinoth Venkatesan",
+          value: 1
+        },
+        {
+          name: "Evelyn James",
+          value: 2
+        },
+        {
+          name: "Jon Javier",
+          value: 3
+        }
+      ]
+    }
+  ])
+    .then(data => {
+      let Fname = data.EFirstname;
+      let Lname = data.ELastname;
+      let Erole = data.Erole;
+      let Emanager = data.Emanager;
+
+      let sql = `Insert into employee (first_name,last_name,role_id,manager_id) values (?,?,?,?)`;
+
+      let total = [Fname, Lname, Erole, Emanager];
+
+      db.query(sql, total, function (err, results) {
+        if (err) throw err;
+        viewEmployees();
+      })
+      init();
+
+    })
+
+}
+
+
+function updateEmployee(){
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'changeroles',
+      message: "Which Employee's role do you want to update:"
+    },
+    {
+      type: 'input',
+      name: 'changeroles',
+      message: "Which role do you want to assign the selected Employee:"
+    }
+  ])
 }
