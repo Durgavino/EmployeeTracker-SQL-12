@@ -292,15 +292,60 @@ function addEmployee() {
 
 function updateEmployee(){
   inquirer.prompt([
+    // {
+    //   type: 'list',
+    //   name: 'selectemploy',
+    //   message: "Which Employee's role do you want to update:",
+    //   choices:[]
+    // },
     {
-      type: 'input',
+      type: 'list',
       name: 'changeroles',
-      message: "Which Employee's role do you want to update:"
-    },
-    {
-      type: 'input',
-      name: 'changeroles',
-      message: "Which role do you want to assign the selected Employee:"
-    }
-  ])
+      message: "Which role do you want to assign the selected Employee:",
+      choices: [
+        {
+          name: "sales Lead",
+          value: 1
+        },
+        {
+          name: "Sales Person",
+          value: 2
+        },
+        {
+          name: "Account Manager",
+          value: 3
+        },
+        {
+          name: "Accountant",
+          value: 4
+        },
+        {
+          name: "Employee HR",
+          value: 5
+        },
+        {
+          name: "Trainer",
+          value: 6
+        },
+        {
+          name: "Senior Engineer",
+          value: 7
+        },
+        {
+          name: "Junior Engineer",
+          value: 8
+        }
+  ]}
+      ])
+  .then(data =>{
+   // let selectemploy=data.selectemploy;
+    let changeroles=data.changeroles;
+    let sql=`update employee(role_id) set (?)`;
+db.query(sql,changeroles,function(err,results){
+  if(err) throw err;
+
+})
+
+  })
+
 }
