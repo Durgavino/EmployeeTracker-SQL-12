@@ -122,7 +122,8 @@ function addDepartment() {
     })
 }
 
-function addRole() {
+function addRole()
+ {
   inquirer.prompt([
     {
       type: 'input',
@@ -139,44 +140,43 @@ function addRole() {
       name: 'deptroles',
       message: "Which Department does the Role belong to ?",
       //choices: ["Sales", "Engineer", "Accounts", "HR", "Training", "code"]
-      choices:[
+      choices: [
         {
-         name:"Sales",
-         value:1
+          name: "Sales",
+          value: 1
         },
         {
-         name:"Engineer",
-         value:2
+          name: "Engineer",
+          value: 2
         },
         {
-         name:"Accounts",
-         value:3
+          name: "Accounts",
+          value: 3
         },
         {
-          name:"HR",
-          value:4
-         },
-         {
-          name:"Training",
-          value:5
-         },
-         {
-          name:"code",
-          value:6
-         }
-       ]
+          name: "HR",
+          value: 4
+        },
+        {
+          name: "Training",
+          value: 5
+        },
+        {
+          name: "code",
+          value: 6
+        }
+      ]
     }
   ])
     .then(data => {
       console.log(data);
       let rolename = data.roles;
-      let sal = data.salaries;
+      //let sal = data.salaries;
+      let sal = parseInt(data.salaries);
       let deptrole = data.deptroles;
 
-      //let sql = `Insert into role(title,salary,department_id) values (?)`;
-      // let sql = `Insert into role(title),role(salary),role(department_id) values (?)`;
-      //let sql = `Insert into role(title,salary,department_id) set (?)`;
-      let sql = `Insert into role(title,salary,department_id) set (?,?,?)`;
+     // let sql = `Insert into role(title,salary,dept_name) set (?, ?, ?)`;
+      let sql = `Insert into role(title,salary,department_id) values (?,?,?)`;
       let total = [rolename, sal, deptrole];
       // db.query(sql, [rolename, sal, deptrole], function (err, results) {
       db.query(sql, total, function (err, results) {
