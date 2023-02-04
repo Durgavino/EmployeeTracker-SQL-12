@@ -68,24 +68,30 @@ function viewallDepartment() {
   // Query database
   db.query('SELECT * FROM department', function (err, results) {
     console.log("------------------------");
-    console.log(results);
-
+    //console.log(results);
+console.table(results)
     console.log("------------------------");
+    init();
   });
 }
 
 
+
 function viewallRole() {
-  db.query(' select role.id,role.title,role.salary,department.dept_name from role join department on role.department_id=department.department_id ', function (err, results) {
+  db.query(' select role.id as Role_ID,role.title as Role_Title,role.salary as Salary,department.dept_name as Dept_name from role join department on role.department_id=department.department_id ', function (err, results) {
     if (err) throw err;
-    console.log(results);
-  });
+   // console.log(results);
+   console.table(results);
+ init();
+ });
 }
 
 function viewEmployees() {
   db.query('select employee.id,employee.first_name,employee.last_name,role.title,department.dept_name,role.salary,employee.manager_id from employee inner join role on employee.role_id=role.id inner join department on role.department_id=department.department_id', function (err, results) {
     if (err) throw err;
-    console.log(results);
+    //console.log(results);
+    console.table(results);
+init();
   });
 }
 
@@ -107,8 +113,9 @@ function addDepartment() {
       db.query(sql, dpartment, function (err, results) {
         if (err) throw err;
         //console.log(results);
-
+        console.table(results);
         viewallDepartment();
+init();
       });
 
 
@@ -140,12 +147,16 @@ function addRole() {
       let sal = data.salaries;
       let deptrole = data.deptroles;
      
-      let sql = `Insert into role(title,salary,department_id) values (?,?,?)`;
+      //let sql = `Insert into role(title,salary,department_id) values (?)`;
+     // let sql = `Insert into role(title),role(salary),role(department_id) values (?)`;
+let sql = `Insert into role(title,salary,department_id) set (?)`;
       let total=[rolename,sal,deptrole];
      // db.query(sql, [rolename, sal, deptrole], function (err, results) {
-        db.query(sql,[total], function (err, results) {
+        db.query(sql,total, function (err, results) {
         if (err) throw err;
+        console.table(results);
         viewallRole();
+init();
       })
     })
 }
