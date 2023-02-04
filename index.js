@@ -54,9 +54,9 @@ function init() {
 
         return addDepartment();
       }
-else if(data.option==="Add a Role"){
-  return addRole();
-}
+      else if (data.option === "Add a Role") {
+        return addRole();
+      }
     })
 }
 
@@ -89,8 +89,7 @@ function viewEmployees() {
   });
 }
 
-function addDepartment() 
-{
+function addDepartment() {
   inquirer.prompt([
     {
       type: 'input',
@@ -98,52 +97,55 @@ function addDepartment()
       message: 'enter a department name',
     }
   ])
-  .then(data => 
-    {
-    console.log(data);
-    let dpartment = data.department;
-    console.log(dpartment + ' added');
-    //db.query(`Insert into department set dept_name ? `, dpartment);
-    let sql =`Insert into department(dept_name) values(?) `;
-    // db.query(`Insert into department set dept_name ? `, dpartment,function(err,results){
-    db.query(sql,dpartment, function (err, results) 
-    {
-      if (err) throw err;
-      //console.log(results);
+    .then(data => {
+      console.log(data);
+      let dpartment = data.department;
+      console.log(dpartment + ' added');
+      //db.query(`Insert into department set dept_name ? `, dpartment);
+      let sql = `Insert into department(dept_name) values(?) `;
+      // db.query(`Insert into department set dept_name ? `, dpartment,function(err,results){
+      db.query(sql, dpartment, function (err, results) {
+        if (err) throw err;
+        //console.log(results);
 
-      viewallDepartment();
-    });
+        viewallDepartment();
+      });
 
 
-  })
+    })
 }
 
-function addRole(){
+function addRole() {
   inquirer.prompt([
     {
-      type:'input',
-      name:'roles',
-      message:"Enter the Name of the Role :"
+      type: 'input',
+      name: 'roles',
+      message: "Enter the Name of the Role :"
     },
     {
-      type:'input',
-      name:'salaries',
-      message:"What is the Salary of the Role :"
+      type: 'input',
+      name: 'salaries',
+      message: "What is the Salary of the Role :"
     },
     {
-      type:'list',
-      name:'deptroles',
-      message:"Which Department does the Role belong to ?",
-      choices:["Sales","Engineer","Accounts","HR","Training","code"]
+      type: 'list',
+      name: 'deptroles',
+      message: "Which Department does the Role belong to ?",
+      choices: ["Sales", "Engineer", "Accounts", "HR", "Training", "code"]
     }
   ])
-  // .then(data =>{
-  //   console.log(data);
-  //   let rolename=data.roles;
-  //   let sql=`Insert into role(title) values (?)`;
-  //   db.query(sql,rolename,function(err,results){
-  //     if (err) throw err;
-
-  //   })
-  // })
+    .then(data => {
+      console.log(data);
+      let rolename = data.roles;
+      let sal = data.salaries;
+      let deptrole = data.deptroles;
+     
+      let sql = `Insert into role(title,salary,department_id) values (?,?,?)`;
+      let total=[rolename,sal,deptrole];
+     // db.query(sql, [rolename, sal, deptrole], function (err, results) {
+        db.query(sql,[total], function (err, results) {
+        if (err) throw err;
+        viewallRole();
+      })
+    })
 }
