@@ -69,7 +69,7 @@ function viewallDepartment() {
   db.query('SELECT * FROM department', function (err, results) {
     console.log("------------------------");
     //console.log(results);
-console.table(results)
+    console.table(results)
     console.log("------------------------");
     init();
   });
@@ -80,10 +80,10 @@ console.table(results)
 function viewallRole() {
   db.query(' select role.id as Role_ID,role.title as Role_Title,role.salary as Salary,department.dept_name as Dept_name from role join department on role.department_id=department.department_id ', function (err, results) {
     if (err) throw err;
-   // console.log(results);
-   console.table(results);
- init();
- });
+    // console.log(results);
+    console.table(results);
+    init();
+  });
 }
 
 function viewEmployees() {
@@ -91,7 +91,7 @@ function viewEmployees() {
     if (err) throw err;
     //console.log(results);
     console.table(results);
-init();
+    init();
   });
 }
 
@@ -115,7 +115,7 @@ function addDepartment() {
         //console.log(results);
         console.table(results);
         viewallDepartment();
-init();
+        init();
       });
 
 
@@ -138,7 +138,33 @@ function addRole() {
       type: 'list',
       name: 'deptroles',
       message: "Which Department does the Role belong to ?",
-      choices: ["Sales", "Engineer", "Accounts", "HR", "Training", "code"]
+      //choices: ["Sales", "Engineer", "Accounts", "HR", "Training", "code"]
+      choices:[
+        {
+         name:"Sales",
+         value:1
+        },
+        {
+         name:"Engineer",
+         value:2
+        },
+        {
+         name:"Accounts",
+         value:3
+        },
+        {
+          name:"HR",
+          value:4
+         },
+         {
+          name:"Training",
+          value:5
+         },
+         {
+          name:"code",
+          value:6
+         }
+       ]
     }
   ])
     .then(data => {
@@ -146,17 +172,18 @@ function addRole() {
       let rolename = data.roles;
       let sal = data.salaries;
       let deptrole = data.deptroles;
-     
+
       //let sql = `Insert into role(title,salary,department_id) values (?)`;
-     // let sql = `Insert into role(title),role(salary),role(department_id) values (?)`;
-let sql = `Insert into role(title,salary,department_id) set (?)`;
-      let total=[rolename,sal,deptrole];
-     // db.query(sql, [rolename, sal, deptrole], function (err, results) {
-        db.query(sql,total, function (err, results) {
+      // let sql = `Insert into role(title),role(salary),role(department_id) values (?)`;
+      //let sql = `Insert into role(title,salary,department_id) set (?)`;
+      let sql = `Insert into role(title,salary,department_id) set (?,?,?)`;
+      let total = [rolename, sal, deptrole];
+      // db.query(sql, [rolename, sal, deptrole], function (err, results) {
+      db.query(sql, total, function (err, results) {
         if (err) throw err;
         console.table(results);
         viewallRole();
-init();
+        init();
       })
     })
 }
