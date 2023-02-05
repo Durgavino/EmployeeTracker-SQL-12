@@ -9,10 +9,10 @@ Node JS
 MYSql Workbench
 Inquirer,MYSQL2,ConsoleTable Packages are used
 
-##Contributors
+## Contributors
 Learning Assistant Tutors,W3 Schools.
 
-##License
+## License
 MIT  License
 
-##Walkthrough Video
+## Walkthrough Video
