@@ -62,6 +62,7 @@ function init() {
       }
       else if (data.option === "Update an Employee Role") {
         return updateEmployee();
+       
       }
 
     })
@@ -290,14 +291,87 @@ function addEmployee() {
 }
 
 
-function updateEmployee(){
+// function updateEmployee() {
+
+//  let enames=`select employee.first_name,employee.last_name from employee`;
+
+//   inquirer.prompt([
+//     {
+//       type: 'list',
+//       name: 'selectemploy',
+//       message: "Which Employee's role do you want to update:",
+//       choices:[enames]
+//     },
+//     {
+//       type: 'list',
+//       name: 'changeroles',
+//       message: "Which role do you want to assign the selected Employee:",
+//       choices: [
+//         {
+//           name: "sales Lead",
+//           value: 1
+//         },
+//         {
+//           name: "Sales Person",
+//           value: 2
+//         },
+//         {
+//           name: "Account Manager",
+//           value: 3
+//         },
+//         {
+//           name: "Accountant",
+//           value: 4
+//         },
+//         {
+//           name: "Employee HR",
+//           value: 5
+//         },
+//         {
+//           name: "Trainer",
+//           value: 6
+//         },
+//         {
+//           name: "Senior Engineer",
+//           value: 7
+//         },
+//         {
+//           name: "Junior Engineer",
+//           value: 8
+//         }
+//       ]
+//     }
+//   ])
+//     .then(data => {
+//      let selectemploy=data.selectemploy;
+//       let changeroles = data.changeroles;
+//       let total=[selectemploy,changeroles]
+//       let sql = `update employee(first_name,last_name role_id) set (?,?,?)`;
+//       db.query(sql, total, function (err, results) {
+//         if (err) throw err;
+
+//       })
+
+//     })
+
+// }
+
+
+function updateEmployee() {
+
+ 
+const ename=db.query('Select employee.first_name,employee.last_name from employee',function(err,results){
+  console.log(res
+    );
+});
+
   inquirer.prompt([
-    // {
-    //   type: 'list',
-    //   name: 'selectemploy',
-    //   message: "Which Employee's role do you want to update:",
-    //   choices:[]
-    // },
+    {
+      type: 'list',
+      name: 'selectemploy',
+      message: "Which Employee's role do you want to update:",
+      choices:[ename]
+    },
     {
       type: 'list',
       name: 'changeroles',
@@ -335,17 +409,19 @@ function updateEmployee(){
           name: "Junior Engineer",
           value: 8
         }
-  ]}
-      ])
-  .then(data =>{
-   // let selectemploy=data.selectemploy;
-    let changeroles=data.changeroles;
-    let sql=`update employee(role_id) set (?)`;
-db.query(sql,changeroles,function(err,results){
-  if(err) throw err;
+      ]
+    }
+  ])
+    .then(data => {
+     let selectemploy=data.selectemploy;
+      let changeroles = data.changeroles;
+      let total=[selectemploy,changeroles]
+      let sql = `update employee(first_name,last_name role_id) set (?,?,?)`;
+      db.query(sql, total, function (err, results) {
+        if (err) throw err;
 
-})
+      })
 
-  })
+    })
 
 }
