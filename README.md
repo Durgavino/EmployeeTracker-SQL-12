@@ -9,6 +9,11 @@ Node JS
 MYSql Workbench
 Inquirer,MYSQL2,ConsoleTable Packages are used
 
+## Installation
+Install the required packages such as Inquirer,MYSQL2,ConsoleTable from NPM
+npm i
+node index
+
 ## Contributors
 Learning Assistant Tutors,W3 Schools.
 
