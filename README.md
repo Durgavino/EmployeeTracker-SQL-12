@@ -18,6 +18,6 @@ node index
 Learning Assistant Tutors,W3 Schools.
 
 ## License
-MIT  License
+None
 
 ## Walkthrough Video
