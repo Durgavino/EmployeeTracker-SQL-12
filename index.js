@@ -1,3 +1,5 @@
+
+// Required Packages
 const inquirer = require('inquirer');
 const mysql = require('mysql2');
 const consoleTable = require('console.table');
@@ -71,20 +73,21 @@ function init() {
 init();
 
 
-
+// View all department from the sql 
 function viewallDepartment() {
   // Query database
   db.query('SELECT * FROM department', function (err, results) {
     console.log("------------------------");
     //console.log(results);
-    console.table(results)
+    console.table(results);
+   
     console.log("------------------------");
     init();
   });
 }
 
 
-
+// View all Role from the sql 
 function viewallRole() {
   db.query(' select role.id as Role_ID,role.title as Role_Title,role.salary as Salary,department.dept_name as Dept_name from role join department on role.department_id=department.department_id ', function (err, results) {
     if (err) throw err;
@@ -94,6 +97,7 @@ function viewallRole() {
   });
 }
 
+// View all Employee from the sql 
 function viewEmployees() {
   db.query('select employee.id,employee.first_name,employee.last_name,role.title,department.dept_name,role.salary,employee.manager_id from employee inner join role on employee.role_id=role.id inner join department on role.department_id=department.department_id', function (err, results) {
     if (err) throw err;
@@ -103,6 +107,7 @@ function viewEmployees() {
   });
 }
 
+// function to add department to the sql table 
 function addDepartment() {
   inquirer.prompt([
     {
@@ -130,6 +135,7 @@ function addDepartment() {
     })
 }
 
+// function to add Role to the sql table 
 function addRole() {
   inquirer.prompt([
     {
@@ -198,6 +204,8 @@ function addRole() {
     })
 }
 
+
+// function to add employee to the sql table 
 function addEmployee() {
   inquirer.prompt([
     {
@@ -359,11 +367,7 @@ function addEmployee() {
 
 function updateEmployee() {
 
- 
-const ename=db.query('Select employee.first_name,employee.last_name from employee',function(err,results){
-  console.log(res
-    );
-});
+const ename=[];
 
   inquirer.prompt([
     {
@@ -371,6 +375,7 @@ const ename=db.query('Select employee.first_name,employee.last_name from employe
       name: 'selectemploy',
       message: "Which Employee's role do you want to update:",
       choices:[ename]
+      
     },
     {
       type: 'list',
@@ -419,6 +424,7 @@ const ename=db.query('Select employee.first_name,employee.last_name from employe
       let sql = `update employee(first_name,last_name role_id) set (?,?,?)`;
       db.query(sql, total, function (err, results) {
         if (err) throw err;
+        console.log(results);
 
       })
 

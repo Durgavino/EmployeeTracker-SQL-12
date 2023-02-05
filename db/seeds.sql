@@ -1,4 +1,4 @@
-
+-- Data for department table
 INSERT INTO department (department_id,dept_name)
 VALUES (1, "Sales"),
        (2, "Engineer"),
@@ -6,6 +6,7 @@ VALUES (1, "Sales"),
        (4, "HR"),
        (5,"Training");
        
+       -- Data for role table
          INSERT INTO role (id,title,salary,department_id)
 VALUES (1, "Sales Lead",5000,1),
        (2, "Sales Person",3000,1),
@@ -16,7 +17,7 @@ VALUES (1, "Sales Lead",5000,1),
        (7,"Senior Engineer",6000,2),
        (8,"Junior Engineer",3000,2);
        
-       
+       -- Data for employee table
          INSERT INTO employee (id,first_name,last_name,role_id,manager_id)
 VALUES (1,"Vinoth","Venkatesan",1,1),
        (2,"Jon","Gaston",2,1),
@@ -28,9 +29,13 @@ VALUES (1,"Vinoth","Venkatesan",1,1),
        (8,"Stefan","Matt",8,1);
        
        
+       ---Queries
        select * from department;
+
        select * from role;
-select * from employee;
+
+       
+       select * from employee;
 
 show databases;
  
@@ -43,4 +48,3 @@ show databases;
  
  
  
- show databases;
