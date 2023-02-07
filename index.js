@@ -140,6 +140,11 @@ function addDepartment() {
 
 // function to add Role to the sql table 
 function addRole() {
+  // var updatedDepartment=`select department.dept_name from department`;
+  // db.query(updatedDepartment,function(err,results){
+  //   if(err) throw err;
+
+  // })
   inquirer.prompt([
     {
       type: 'input',
@@ -155,7 +160,8 @@ function addRole() {
       type: 'list',
       name: 'deptroles',
       message: "Which Department does the Role belong to ?",
-      //choices: ["Sales", "Engineer", "Accounts", "HR", "Training", "code"]
+      
+      //choices: updatedDepartment
       choices: [
         {
           name: "Sales",
@@ -190,7 +196,7 @@ function addRole() {
       let sal = parseInt(data.salaries);
       let deptrole = data.deptroles;
       let total = [rolename, sal, deptrole];
-      
+
       let sql = `Insert into role(title,salary,department_id) values (?,?,?)`;
       
       db.query(sql, total, function (err, results) {
@@ -199,8 +205,8 @@ function addRole() {
         //console.table(results);
         viewallRole();
 
+        init();
       })
-      init();
 
     })
 }
