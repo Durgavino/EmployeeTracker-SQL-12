@@ -300,29 +300,29 @@ function addEmployee() {
 
 
 
-function updateEmployee() 
-{
-// const ename=[];
-//var enames=`select employee.first_name,employee.last_name from employee`;
-//   viewEmployees().then(([ename]) =>
-//    {
-//     const employeearray = ename;
-//     const employeenames = employeearray.map(({ id, first_name, last_name }) => ({
-      
-//         name: `${first_name} ${last_name}`,
-//           value:id
-      
-//     }));
-var ename=`select employee.first_name,employee.last_name from employee`;
-db.query(ename,function(err,results){
-  if(err) throw err;
-  const employeenames=results.map(({id,first_name,last_name})=>({
-    name: `${first_name} ${last_name}`,  
-    value:id,
-    
-  }
+function updateEmployee() {
+  // const ename=[];
+  //var enames=`select employee.first_name,employee.last_name from employee`;
+  //   viewEmployees().then(([ename]) =>
+  //    {
+  //     const employeearray = ename;
+  //     const employeenames = employeearray.map(({ id, first_name, last_name }) => ({
 
-  ))
+  //         name: `${first_name} ${last_name}`,
+  //           value:id
+
+  //     }));
+  var ename = `select employee.id,employee.first_name,employee.last_name from employee`;
+  db.query(ename, function (err, results)
+   {
+    if (err) throw err;
+    const allempname = results.map(({ id, first_name, last_name }) => ({
+      name: `${first_name} ${last_name}`,
+      value: id,
+
+    }
+
+    ))
 
 
     inquirer.prompt([
@@ -330,7 +330,7 @@ db.query(ename,function(err,results){
         type: 'list',
         name: 'selectemploy',
         message: "Which Employee's role do you want to update:",
-        choices: employeenames
+        choices: allempname
 
       },
       {
@@ -378,16 +378,17 @@ db.query(ename,function(err,results){
         let employeeselect = data.selectemploy;
         let changeroles = data.changeroles;
         let total = [employeeselect, changeroles]
-        let sql = `update employee(first_name,last_name,role_id) set (?,?,?)`;
+       // let sql = `update employee(first_name,last_name,role_id) set (?,?,?)`;
+        let sql=`UPDATE employee SET role_id = (?) WHERE id = (?)`;
         db.query(sql, total, function (err, results) {
           if (err) throw err;
           console.log(results);
-
+          viewEmployees();
         })
 
       })
- // })
+    // })
 
-})
+  })
 
 }
