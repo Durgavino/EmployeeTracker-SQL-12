@@ -128,7 +128,7 @@ function addDepartment() {
         //console.log(results);
         console.table(results);
         console.log('\n');
-        
+
         viewallDepartment();
         init();
         
@@ -190,13 +190,13 @@ function addRole() {
       let sal = parseInt(data.salaries);
       let deptrole = data.deptroles;
       let total = [rolename, sal, deptrole];
-      // let sql = `Insert into role(title,salary,dept_name) set (?, ?, ?)`;
+      
       let sql = `Insert into role(title,salary,department_id) values (?,?,?)`;
       
       db.query(sql, total, function (err, results) {
         if (err) throw err;
 
-        console.table(results);
+        //console.table(results);
         viewallRole();
 
       })
