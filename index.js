@@ -127,8 +127,11 @@ function addDepartment() {
         if (err) throw err;
         //console.log(results);
         console.table(results);
+        console.log('\n');
+        
         viewallDepartment();
         init();
+        
       });
 
 
@@ -182,20 +185,18 @@ function addRole() {
     }
   ])
     .then(data => {
-      console.log(data);
+      //console.log(data);
       let rolename = data.roles;
-      //let sal = data.salaries;
       let sal = parseInt(data.salaries);
       let deptrole = data.deptroles;
-
+      let total = [rolename, sal, deptrole];
       // let sql = `Insert into role(title,salary,dept_name) set (?, ?, ?)`;
       let sql = `Insert into role(title,salary,department_id) values (?,?,?)`;
-      let total = [rolename, sal, deptrole];
-      // db.query(sql, [rolename, sal, deptrole], function (err, results) {
+      
       db.query(sql, total, function (err, results) {
         if (err) throw err;
 
-        //console.table(results);
+        console.table(results);
         viewallRole();
 
       })
